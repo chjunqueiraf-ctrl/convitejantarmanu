@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite Especial - 1 Ano</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --verde-terminal: #00ff41;
+            --rosa-claro: #ffb3c6;
+            --roxo-escuro: #2d0036;
+            --roxo-medio: #6a0572;
+            --rosa-forte: #c2185b;
+            --rosa-neon: #ff4081;
+            --vermelho-vinho: #1a0000;
+            --vermelho-boate: #3d0000;
+            --dourado: #ffd700;
+            --branco: #ffffff;
+            --preto: #000000;
+            --overlay: rgba(0, 0, 0, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--preto);
+        }
+
+        .fase {
+            width: 100%;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 2rem;
+            transition: opacity 600ms ease;
+            opacity: 0;
+        }
+
+        .fase.ativa {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* --- FASE 1: TERMINAL --- */
+        #fase1 {
+            background: var(--preto);
+            align-items: flex-start;
+            padding: 2rem 3rem;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--verde-terminal);
+        }
+
+        #fase1::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0.5) 2px, rgba(0, 0, 0, 0) 4px);
+            background-size: 100% 4px;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+            min-height: 1.2rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background: currentColor;
+            margin-left: 5px;
+            vertical-align: middle;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .btn-terminal {
+            border: 1px solid var(--verde-terminal);
+            background: transparent;
+            color: var(--verde-terminal);
+            font-family: 'Share Tech Mono', monospace;
+            padding: 12px 24px;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: 0.3s;
+            opacity: 0;
+        }
+
+        .btn-terminal.visible {
+            opacity: 1;
+        }
+
+        .btn-terminal:hover {
+            background: var(--verde-terminal);
+            color: var(--preto);
+        }
+
+        /* --- FASE 2: ROMÂNTICO --- */
+        #fase2 {
+            background: linear-gradient(45deg, #2d0036, #6a0572, #c2185b, #ff4081);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+            text-align: center;
+            color: var(--branco);
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .particula {
+            position: absolute;
+            bottom: -5%;
+            animation: floatUp linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .conteudo-romantico {
+            z-index: 10;
+            max-width: 800px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .fadeInUp {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1rem;
+            color: var(--rosa-claro);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-info {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 480px;
+            width: 90%;
+            margin: 2rem auto;
+            text-align: left;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-item {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-item b {
+            min-width: 80px;
+        }
+
+        .btn-rosa {
+            background: linear-gradient(135deg, var(--rosa-forte), var(--rosa-neon));
+            color: var(--branco);
+            border: none;
+            border-radius: 50px;
+            padding: 14px 32px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 64, 129, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 1rem;
+        }
+
+        .btn-rosa:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(255, 64, 129, 0.7);
+        }
+
+        /* --- FASE 3: PICANTE --- */
+        #fase3 {
+            background: linear-gradient(to bottom, var(--vermelho-vinho), var(--vermelho-boate));
+            box-shadow: inset 0 0 60px rgba(255, 0, 0, 0.1);
+            animation: pulseGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from {
+                box-shadow: inset 0 0 60px rgba(255, 0, 0, 0.1);
+            }
+
+            to {
+                box-shadow: inset 0 0 120px rgba(255, 0, 0, 0.3);
+            }
+        }
+
+        .emoji-fundo {
+            position: absolute;
+            font-size: 6rem;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .picancia-container {
+            width: 90%;
+            max-width: 500px;
+            margin: 2rem 0;
+            z-index: 10;
+        }
+
+        #slider-picancia {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #ffeb3b, #f44336);
+            outline: none;
+            margin: 20px 0;
+        }
+
+        #slider-picancia::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--branco);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .valor-picancia {
+            font-size: 3rem;
+            color: var(--rosa-neon);
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .msg-picancia {
+            min-height: 2rem;
+            color: var(--branco);
+        }
+
+        .termos-card {
+            border: 1px solid var(--dourado);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            max-width: 500px;
+            width: 100%;
+            margin-top: 2rem;
+            text-align: left;
+            z-index: 10;
+        }
+
+        .termos-card h3 {
+            color: var(--dourado);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .termos-card ul {
+            list-style: none;
+        }
+
+        .termos-card li {
+            margin-bottom: 0.8rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .termos-card li::before {
+            content: "Art. " attr(data-index) "º — ";
+            font-weight: bold;
+            color: var(--dourado);
+        }
+
+        /* --- FASE 4: CONFIRMAÇÃO --- */
+        #fase4 {
+            background: linear-gradient(135deg, var(--roxo-escuro), var(--roxo-medio));
+        }
+
+        .card-final {
+            background: var(--branco);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            color: #1a1a2e;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .quiz-pergunta {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .quiz-pergunta p {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-botoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-quiz {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            background: #f9f9f9;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-quiz.selecionado {
+            background: linear-gradient(135deg, var(--roxo-medio), var(--rosa-forte));
+            color: white;
+            border-color: transparent;
+            opacity: 1 !important;
+        }
+
+        .quiz-confirmacao {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #2e7d32;
+            display: none;
+        }
+
+        #btn-confirmar {
+            background: linear-gradient(135deg, #c2185b, #ff4081);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(194, 24, 91, 0.6);
+            margin-top: 2rem;
+        }
+
+        #btn-confirmar.fugitivo {
+            position: fixed;
+            z-index: 1000;
+            transition: left 0.15s ease-out, top 0.15s ease-out;
+        }
+
+        #msg-fuga {
+            position: fixed;
+            width: 100%;
+            text-align: center;
+            top: 20px;
+            left: 0;
+            font-weight: bold;
+            color: white;
+            display: none;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+            z-index: 1001;
+        }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--overlay);
+            z-index: 9000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 440px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.5);
+            transition: 0.4s;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+            color: #1a1a2e;
+        }
+
+        .modal-card.aberto {
+            transform: scale(1);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 600px) {
+            html, body {
+                overflow-y: auto;
+                height: auto;
+            }
+            .fase {
+                padding: 1rem;
+                height: auto;
+                min-height: 100vh;
+                overflow-y: visible;
+                position: relative; /* Muda para relativo no mobile para o body scrollar */
+                justify-content: flex-start;
+                padding-top: 2rem;
+                padding-bottom: 4rem; /* Espaço extra para o botão fugitivo não cobrir nada */
+            }
+
+            .fase.ativa {
+                display: flex;
+            }
+
+            #fase1 {
+                padding: 1.5rem;
+                justify-content: center;
+                position: absolute; /* Terminal mantém absoluto para o efeito */
+                height: 100vh;
+            }
+
+            .card-info,
+            .card-final,
+            .modal-card {
+                padding: 1.5rem;
+                width: 95%;
+                margin: 1rem auto;
+            }
+
+            .btn-quiz {
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .conteudo-romantico {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FASE 1: TERMINAL -->
+    <div id="fase1" class="fase ativa">
+        <div id="terminal-content"></div>
+        <button id="btn-start" class="btn-terminal">[ Clique para ver a "ameaça" completa ]</button>
+    </div>
+
+    <!-- FASE 2: ROMÂNTICO -->
+    <div id="fase2" class="fase">
+        <div class="conteudo-romantico">
+            <div class="fadeInUp" style="font-size: 4rem; margin-bottom: 1rem;">💌</div>
+            <h1 class="fadeInUp" style="animation-delay: 0.2s;">Convite Oficial para o Jantar de 1 Ano</h1>
+            <h2 class="fadeInUp" style="animation-delay: 0.4s;">Versão 1.0 — Release Aniversário de Namoro</h2>
+
+            <p class="fadeInUp" style="max-width: 600px; margin: 2rem auto; animation-delay: 0.6s;">
+                Depois de 365 dias de atualizações, bugs corrigidos, risadas e muitas peripécias rs,
+                você está oficialmente convidada para a versão mais especial do nosso relacionamento:
+                <span
+                    style="font-size: 1.4rem; font-weight: bold; color: var(--dourado); display: block; margin-top: 1rem;">✨
+                    Jantar Comemorativo de 1 Ano ✨</span>
+            </p>
+
+            <div class="card-info fadeInUp" style="animation-delay: 0.8s;">
+                <div class="info-item"><span>📅</span> <b>Data:</b> 24/04/2026</div>
+                <div class="info-item"><span>🕣</span> <b>Horário:</b> 19:30</div>
+                <div class="info-item"><span>📍</span> <b>Local:</b> Rua Paul McCartney Starr Lennon, 6767</div>
+                <div class="info-item"><span>👗</span> <b>Traje:</b> Até as 23h, trajes normais. Depois desse horário...
+                    quem sabe nenhum... 😏</div>
+            </div>
+
+            <button class="btn-rosa fadeInUp" style="animation-delay: 1s;" onclick="trocarFase('fase2', 'fase3')">🌶️
+                Continuar para os Detalhes Picantes...</button>
+        </div>
+    </div>
+
+    <!-- FASE 3: PICANTE -->
+    <div id="fase3" class="fase">
+        <div class="emoji-fundo" style="top: 10%; left: 10%;">😈</div>
+        <div class="emoji-fundo" style="bottom: 10%; right: 10%;">😈</div>
+
+        <h1 style="color: var(--dourado); font-family: 'Playfair Display'; font-size: clamp(1.5rem, 4vw, 2.2rem);">😈
+            Aviso Importante da Organização 😈</h1>
+
+        <div class="picancia-container">
+            <p style="color: white; margin-bottom: 10px;">Nível de picância do encontro: 🌶️</p>
+            <input type="range" id="slider-picancia" min="1" max="10" value="5">
+            <div id="valor-picancia" class="valor-picancia">5</div>
+            <div id="msg-picancia" class="msg-picancia">Nível padrão de apimentamento aprovado. ✅</div>
+        </div>
+
+        <div class="termos-card">
+            <h3>📜 Termos e Condições do Encontro</h3>
+            <ul>
+                <li data-index="1">É proibido emburrar.</li>
+                <li data-index="2">É proibido vir sem fome.</li>
+                <li data-index="3">Beijos e afins são ilimitadamente liberados.</li>
+                <li data-index="4">Reclamações devem ser feitas diretamente ao namorado, com direito a chameguin.</li>
+            </ul>
+        </div>
+
+        <button class="btn-rosa"
+            style="background: linear-gradient(135deg, #d32f2f, #ffeb3b); color: #000; margin-top: 2rem;"
+            onclick="trocarFase('fase3', 'fase4')">📋 Próximo: Formulário Oficial de Confirmação</button>
+    </div>
+
+    <!-- FASE 4: CONFIRMAÇÃO -->
+    <div id="fase4" class="fase">
+        <div id="msg-fuga">Ok, ok, já entendi que você vai. Mas você precisa provar clicando rápido! 😂</div>
+
+        <div class="card-final">
+            <h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">📋 Formulário Oficial de Confirmação de Presença</h1>
+            <p style="font-style: italic; font-size: 0.9rem; margin-bottom: 2rem;">(Preenchimento obrigatório por lei)
+            </p>
+
+            <div class="quiz-pergunta">
+                <p>1. Você aceita participar do Jantar Oficial de 1 Ano?</p>
+                <div class="quiz-botoes">
+                    <button class="btn-quiz" onclick="handleQuiz(this, 'p1')">Sim</button>
+                    <button class="btn-quiz" onclick="handleQuiz(this, 'p1')">Claro</button>
+                    <button class="btn-quiz" onclick="handleQuiz(this, 'p1')">Óbvio</button>
+                </div>
+                <div id="resp-p1" class="quiz-confirmacao">✅ Resposta registrada. Seu contrato de fofura foi renovado
+                    automaticamente.</div>
+            </div>
+
+            <div class="quiz-pergunta">
+                <p>2. Você conhece o organizador deste evento?</p>
+                <div class="quiz-botoes">
+                    <button class="btn-quiz" onclick="handleQuiz(this, 'p2')">Conheço, é um gostosinho aí</button>
+                    <button class="btn-quiz" onclick="handleQuiz(this, 'p2')">Claroooo sou malucaaaa nele</button>
+                </div>
+                <div id="resp-p2" class="quiz-confirmacao">✅ Declaração registrada nos arquivos oficiais do
+                    relacionamento. Obrigado por confirmar algo que já era óbvio. 😌</div>
+            </div>
+
+            <div id="area-botao-confirmar"
+                style="height: 100px; display: flex; align-items: center; justify-content: center;">
+                <button id="btn-confirmar">✅ Confirmar Presença</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FINAL -->
+    <div id="modal-final" class="modal-overlay">
+        <div class="modal-card">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+            <h2 style="font-family: 'Playfair Display'; font-size: 1.8rem; margin-bottom: 1rem;">Presença Confirmada com
+                Sucesso!</h2>
+            <p>Seu lugar ao lado do namorado já está reservado.</p>
+            <p style="margin: 1rem 0;">Te vejo hoje à noite.</p>
+            <p style="font-weight: bold; color: var(--rosa-neon);">Spoiler: o baguio vai ficar dooooido. 😈🔥</p>
+            <button class="btn-rosa" style="margin-top: 2rem; width: 100%;" onclick="fecharModal()">💌 Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        const state = {
+            fugaCount: 0,
+            botaoAtivo: true,
+            maxFugas: 25,
+            distFuga: 200
+        };
+
+        // --- UTILIDADES ---
+        function trocarFase(deId, paraId) {
+            const de = document.getElementById(deId);
+            const para = document.getElementById(paraId);
+
+            de.style.opacity = '0';
+            setTimeout(() => {
+                de.classList.remove('ativa');
+                para.classList.add('ativa');
+                // Trigger reflow
+                para.offsetHeight;
+                para.style.opacity = '1';
+
+                if (paraId === 'fase4') initBotaoFugitivo();
+            }, 600);
+        }
+
+        function typeWriter(el, text, speed, callback) {
+            let i = 0;
+            const container = document.createElement('div');
+            container.className = 'terminal-line';
+            el.appendChild(container);
+
+            function type() {
+                if (i < text.length) {
+                    container.innerHTML = text.substring(0, i + 1) + '<span class="cursor"></span>';
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        // --- FASE 1 ---
+        function initTerminal() {
+            const terminal = document.getElementById('terminal-content');
+            const btn = document.getElementById('btn-start');
+
+            const msgsAlerta = [
+                "> ALERTA: Dispositivo comprometido.",
+                "> Analisando ameaças...",
+                "> Ameaça encontrada: excesso de gostosura.",
+                "> Responsável: Manuela Donatti.",
+                "> Iniciando protocolo: JANTAR ROMÂNTICO."
+            ];
+
+            const msgsAlivio = [
+                "> Calma, é só uma brincadeira...",
+                "> Seu coração foi hackeado pelo usuário: Caetanão Rei do Capa 💀"
+            ];
+
+            function runSequence(list, index, color, delayFinal, nextList) {
+                if (index < list.length) {
+                    const prevCursor = terminal.querySelectorAll('.cursor');
+                    prevCursor.forEach(c => c.remove());
+
+                    typeWriter(terminal, list[index], 35, () => {
+                        const currentLine = terminal.lastChild;
+                        currentLine.style.color = color;
+                        setTimeout(() => runSequence(list, index + 1, color, delayFinal, nextList), 1000);
+                    });
+                } else {
+                    if (nextList) {
+                        setTimeout(() => runSequence(nextList, 0, 'var(--rosa-claro)', 0, null), 1500);
+                    } else {
+                        setTimeout(() => {
+                            btn.classList.add('visible');
+                            btn.onclick = () => trocarFase('fase1', 'fase2');
+                        }, 1000);
+                    }
+                }
+            }
+
+            runSequence(msgsAlerta, 0, 'var(--verde-terminal)', 1500, msgsAlivio);
+        }
+
+        // --- FASE 2 ---
+        function criarParticulas() {
+            const container = document.getElementById('fase2');
+            const chars = ['♥', '✦', '✿', '★'];
+            for (let i = 0; i < 25; i++) {
+                const p = document.createElement('span');
+                p.className = 'particula';
+                p.innerHTML = chars[Math.floor(Math.random() * chars.length)];
+                p.style.left = Math.random() * 95 + 'vw';
+                p.style.fontSize = (Math.random() * 14 + 10) + 'px';
+                p.style.opacity = Math.random() * 0.5 + 0.3;
+                p.style.animationDuration = (Math.random() * 8 + 6) + 's';
+                p.style.animationDelay = (Math.random() * 8) + 's';
+                container.appendChild(p);
+            }
+        }
+
+        // --- FASE 3 ---
+        function initSlider() {
+            const slider = document.getElementById('slider-picancia');
+            const valor = document.getElementById('valor-picancia');
+            const msg = document.getElementById('msg-picancia');
+
+            slider.oninput = function () {
+                const v = parseInt(this.value);
+                valor.innerHTML = v;
+                if (v <= 2) msg.innerHTML = "Hm, tá com timidez? Sem pressão... 😏";
+                else if (v <= 4) msg.innerHTML = "Já tá esquentando... 🔥";
+                else if (v <= 6) msg.innerHTML = "Nível padrão de apimentamento aprovado. ✅";
+                else if (v <= 8) msg.innerHTML = "Uau, alguém tá animada hoje... 😈";
+                else msg.innerHTML = "Protocolo MÁXIMO ativado. O Caetano agradece. 🌋";
+            };
+        }
+
+        // --- FASE 4 ---
+        function handleQuiz(btn, pId) {
+            const parent = btn.parentElement;
+            const buttons = parent.querySelectorAll('.btn-quiz');
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.style.opacity = '0.5';
+            });
+            btn.classList.add('selecionado');
+            btn.style.opacity = '1';
+
+            const resp = document.getElementById('resp-' + pId);
+            resp.style.display = 'block';
+            resp.classList.add('fadeInUp');
+        }
+
+        function initBotaoFugitivo() {
+            const btn = document.getElementById('btn-confirmar');
+            const msgFuga = document.getElementById('msg-fuga');
+
+            btn.classList.add('fugitivo');
+
+            // Posição inicial no centro do card (aproximadamente)
+            const rect = btn.getBoundingClientRect();
+            btn.style.left = rect.left + 'px';
+            btn.style.top = rect.top + 'px';
+
+            function fugir(e) {
+                if (!state.botaoAtivo) return;
+
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+
+                const bRect = btn.getBoundingClientRect();
+                const bCenterX = bRect.left + bRect.width / 2;
+                const bCenterY = bRect.top + bRect.height / 2;
+
+                const dist = Math.sqrt(Math.pow(clientX - bCenterX, 2) + Math.pow(clientY - bCenterY, 2));
+
+                if (dist < state.distFuga) {
+                    state.fugaCount++;
+
+                    const newLeft = Math.random() * (window.innerWidth * 0.8) + (window.innerWidth * 0.05);
+                    const newTop = Math.random() * (window.innerHeight * 0.7) + (window.innerHeight * 0.1);
+
+                    btn.style.left = newLeft + 'px';
+                    btn.style.top = newTop + 'px';
+
+                    if (state.fugaCount === 5) {
+                        msgFuga.style.display = 'block';
+                        msgFuga.classList.add('fadeInUp');
+                    }
+
+                    if (state.fugaCount >= state.maxFugas) {
+                        state.botaoAtivo = false;
+                        msgFuga.innerHTML = "Tudo bem, pode clicar agora! 🥹";
+                        btn.style.transition = 'all 0.5s ease';
+                    }
+                }
+            }
+
+            document.addEventListener('mousemove', fugir);
+            document.addEventListener('touchmove', fugir);
+
+            btn.onclick = abrirModal;
+        }
+
+        function abrirModal() {
+            const overlay = document.getElementById('modal-final');
+            const card = overlay.querySelector('.modal-card');
+            overlay.style.display = 'flex';
+            setTimeout(() => {
+                overlay.style.opacity = '1';
+                card.classList.add('aberto');
+            }, 10);
+        }
+
+        function fecharModal() {
+            const overlay = document.getElementById('modal-final');
+            const card = overlay.querySelector('.modal-card');
+            overlay.style.opacity = '0';
+            card.classList.remove('aberto');
+            setTimeout(() => {
+                overlay.remove();
+            }, 400);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            criarParticulas();
+            initTerminal();
+            initSlider();
+        });
+    </script>
+</body>
+
+</html>
